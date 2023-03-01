@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<psalm
+    useDocblockPropertyTypes="true"
+    usePhpDocMethodsWithoutMagicCall="true"
+    strictBinaryOperands="true"
+    hideExternalErrors="true"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="false"
+    errorLevel="1"
+    allowNamedArgumentCalls="false"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    autoloader="./vendor/roots/wordpress-no-content/wp-includes/plugin.php"
+>
+    <projectFiles>
+        <file name="wordpress-early-hook.php"/>
+        <directory name="tests/src"/>
+        <directory name="tests/integration"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <UnresolvableInclude errorLevel="suppress" />
+    </issueHandlers>
+</psalm>

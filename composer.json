@@ -1,0 +1,71 @@
+{
+    "name": "wecodemore/wordpress-early-hook",
+    "description": "Small library to safely add WordPress hooks before WordPress is loaded.",
+    "type": "library",
+    "keywords": [
+        "wordpress",
+        "wp",
+        "wp hooks",
+        "wp actions",
+        "wp filters",
+        "wordpress hooks",
+        "wordpress actions",
+        "wordpress filters",
+        "hooks",
+        "actions",
+        "filters"
+    ],
+    "prefer-stable": true,
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giuseppe Mazzapica",
+            "email": "giuseppe.mazzapica@gmail.com",
+            "homepage": "https://gmazzap.me",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/wecodemore/wordpress-early-hook/issues",
+        "source": "https://github.com/wecodemore/wordpress-early-hook"
+    },
+    "require": {
+        "php": ">=7.1 < 8.3"
+    },
+    "require-dev": {
+        "roots/wordpress-no-content": ">=6.1.1",
+        "roave/security-advisories": "dev-latest",
+        "inpsyde/php-coding-standards": "^1.0.0",
+        "vimeo/psalm": "^4.30.0",
+        "phpunit/phpunit": "^7.5.20 || ^9.6.4"
+    },
+    "autoload": {
+        "files": [
+            "wordpress-early-hook.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WeCodeMore\\Tests\\": [
+                "tests/src",
+                "tests/integration"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+        "psalm": "@php ./vendor/vimeo/psalm/psalm --no-suggestions --find-unused-psalm-suppress --no-diff --no-cache --no-file-cache",
+        "tests": "@php ./vendor/phpunit/phpunit/phpunit --no-coverage",
+        "qa": [
+            "@cs",
+            "@psalm",
+            "@tests"
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset>
+
+    <file>./wordpress-early-hook.php</file>
+    <file>./tests/src</file>
+    <file>./tests/integration</file>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <config name="testVersion" value="7.1-"/>
+
+    <rule ref="Inpsyde">
+        <exclude name="WordPress.Security.EscapeOutput"/>
+    </rule>
+
+    <rule ref="Inpsyde.CodeQuality.Psr4">
+        <properties>
+            <property
+                name="psr4"
+                type="array"
+                value="WeCodeMore\Tests=>tests\src|tests\integration"/>
+        </properties>
+    </rule>
+
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>./wordpress-early-hook.php</exclude-pattern>
+    </rule>
+
+</ruleset>
