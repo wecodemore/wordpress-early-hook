@@ -15,7 +15,7 @@ namespace WeCodeMore\WpEarlyHook
         return;
     }
 
-    const EARLY_HOOK_VERSION = '1.0.0';
+    const EARLY_HOOK_VERSION = '1.1.0';
 
     /**
      * @param string $type
