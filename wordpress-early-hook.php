@@ -23,7 +23,7 @@ namespace WeCodeMore\WpEarlyHook
      * @param callable $callback
      * @param int $priority
      * @param int $acceptedArgs
-     * @return void
+     * @return bool
      *
      * @internal
      */
@@ -33,7 +33,7 @@ namespace WeCodeMore\WpEarlyHook
         callable $callback,
         int $priority,
         int $acceptedArgs
-    ): void {
+    ): bool {
 
         /** @var array<string, bool> $exists */
         static $exists = [];
@@ -51,11 +51,9 @@ namespace WeCodeMore\WpEarlyHook
                 require_once ABSPATH . 'wp-includes/plugin.php';
             }
 
-            $isFilter
+            return $isFilter
                 ? add_filter($hook, $callback, $priority)
                 : add_action($hook, $callback, $priority);
-
-            return;
         }
         /**
          * If here, this function is called very early, probably _too_ early,
@@ -70,8 +68,10 @@ namespace WeCodeMore\WpEarlyHook
         /** @psalm-suppress MixedArrayAssignment */
         $wp_filter[$hook][$priority][] = [
             'function' => $callback,
-            'accepted_args' => $acceptedArgs
+            'accepted_args' => $acceptedArgs,
         ];
+
+        return true;
     }
 }
 
@@ -82,16 +82,16 @@ namespace WeCodeMore {
      * @param callable $callback
      * @param int $priority
      * @param int $acceptedArgs
-     * @return void
+     * @return bool
      */
     function earlyAddFilter(
         string $hook,
         callable $callback,
         int $priority = 10,
         int $acceptedArgs = 1
-    ): void {
+    ): bool {
 
-        WpEarlyHook\earlyAddHook('filter', $hook, $callback, $priority, $acceptedArgs);
+        return WpEarlyHook\earlyAddHook('filter', $hook, $callback, $priority, $acceptedArgs);
     }
 
     /**
@@ -99,15 +99,15 @@ namespace WeCodeMore {
      * @param callable $callback
      * @param int $priority
      * @param int $acceptedArgs
-     * @return void
+     * @return bool
      */
     function earlyAddAction(
         string $hook,
         callable $callback,
         int $priority = 10,
         int $acceptedArgs = 1
-    ): void {
+    ): bool {
 
-        WpEarlyHook\earlyAddHook('action', $hook, $callback, $priority, $acceptedArgs);
+        return WpEarlyHook\earlyAddHook('action', $hook, $callback, $priority, $acceptedArgs);
     }
 }
