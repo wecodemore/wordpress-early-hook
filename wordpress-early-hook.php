@@ -18,28 +18,6 @@ namespace WeCodeMore\WpEarlyHook
     const EARLY_HOOK_VERSION = '1.0.0';
 
     /**
-     * @param callable $callback
-     * @return string
-     *
-     * @internal
-     */
-    function buildCallbackId(callable $callback): string
-    {
-        switch (true) {
-            case (is_object($callback)):
-                /** @var object $callback */
-                return spl_object_hash($callback);
-            case (is_array($callback)):
-                /** @var array{object|string, string} $callback */
-                $objHash = is_object($callback[0]) ? spl_object_hash($callback[0]) : "{$callback[0]}::";
-                return $objHash . $callback[1];
-            default:
-                /** @var string $callback */
-                return $callback;
-        }
-    }
-
-    /**
      * @param string $type
      * @param string $hook
      * @param callable $callback
@@ -84,16 +62,15 @@ namespace WeCodeMore\WpEarlyHook
          * before ABSPATH is defined.
          * Only option we have is to "manually" write in global `$wp_filter` array.
          */
-        $callbackId = buildCallbackId($callback);
         global $wp_filter;
         is_array($wp_filter) or $wp_filter = [];
         is_array($wp_filter[$hook] ?? null) or $wp_filter[$hook] = [];
         /** @psalm-suppress MixedArrayAssignment */
         is_array($wp_filter[$hook][$priority] ?? null) or $wp_filter[$hook][$priority] = [];
         /** @psalm-suppress MixedArrayAssignment */
-        $wp_filter[$hook][$priority][$callbackId] = [
+        $wp_filter[$hook][$priority][] = [
             'function' => $callback,
-            'accepted_args' => $acceptedArgs,
+            'accepted_args' => $acceptedArgs
         ];
     }
 }

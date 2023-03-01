@@ -151,6 +151,11 @@ class IntegrationTest extends TestCase
         do_action('wecodemore.test-action', 'TEST_');
         static::assertSame('TEST_TEST_', trim(ob_get_clean() ?: ''));
 
+        static::assertSame(10, has_filter('wecodemore.test-filter', $filter));
+        static::assertSame(10, has_filter('wecodemore.test-action', $action));
+        static::assertSame(10, has_filter('wecodemore.test-filter', [$hookObj, 'filter']));
+        static::assertSame(10, has_action('wecodemore.test-action', [$hookObj, 'action']));
+
         remove_filter('wecodemore.test-filter', $filter);
         remove_action('wecodemore.test-action', $action);
 
@@ -166,6 +171,11 @@ class IntegrationTest extends TestCase
         do_action('wecodemore.test-action', 'TEST_');
         static::assertSame('TEST_', trim(ob_get_clean() ?: ''));
 
+        static::assertTrue(has_filter('wecodemore.test-filter'));
+        static::assertTrue(has_filter('wecodemore.test-action'));
+        static::assertSame(10, has_filter('wecodemore.test-filter', [$hookObj, 'filter']));
+        static::assertSame(10, has_action('wecodemore.test-action', [$hookObj, 'action']));
+
         remove_filter('wecodemore.test-filter', [$hookObj, 'filter']);
         remove_action('wecodemore.test-action', [$hookObj, 'action']);
 
@@ -173,5 +183,8 @@ class IntegrationTest extends TestCase
         ob_start();
         do_action('wecodemore.test-action', 'TEST');
         static::assertSame('', trim(ob_get_clean() ?: ''));
+
+        static::assertFalse(has_filter('wecodemore.test-filter'));
+        static::assertFalse(has_filter('wecodemore.test-action'));
     }
 }
