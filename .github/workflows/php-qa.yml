@@ -74,6 +74,17 @@ jobs:
                 php-ver: [ '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
                 wp-ver: [ '4.7.*', '5.*', '6.*' ]
                 dependency-versions: [ 'highest', 'lowest' ]
+                exclude:
+                    -   php-ver: '8.1'
+                        wp-ver: '4.7.*'
+                    -   php-ver: '8.1'
+                        wp-ver: '5.*'
+                        dependency-versions: 'lowest'
+                    -   php-ver: '8.2'
+                        wp-ver: '4.7.*'
+                    -   php-ver: '8.2'
+                        wp-ver: '5.*'
+                        dependency-versions: 'lowest'
 
         steps:
 
@@ -100,7 +111,9 @@ jobs:
                     dependency-versions: ${{ matrix.dependency-versions }}
 
             -   name: Run unit tests
-                run: ./vendor/bin/phpunit ${{ ((env.USE_COVERAGE == 'yes') && '--coverage-html=coverage-report') || '--no-coverage' }}
+                run: |
+                    ./vendor/bin/phpunit --atleast-version 9 && ./vendor/bin/phpunit --migrate-configuration || echo 'Config does not need updates.'
+                    ./vendor/bin/phpunit ${{ ((env.USE_COVERAGE == 'yes') && '--coverage-html=coverage-report') || '--no-coverage' }}
 
             -   name: Upload coverage report
                 uses: actions/upload-artifact@v3
