@@ -103,7 +103,11 @@ jobs:
                     coverage: ${{ ((env.USE_COVERAGE == 'yes') && 'xdebug') || 'none' }}
 
             -   name: Adjust WP version
-                run: composer require --dev --no-update "roots/wordpress-no-content:${{ matrix.wp-ver }}"
+                run: |
+                    composer remove --dev --no-update "roots/wordpress-no-content"
+                    composer remove --dev --no-update "phpunit/phpunit"
+                    composer require --no-update "roots/wordpress-no-content:${{ matrix.wp-ver }}"
+                    composer require --no-update "phpunit/phpunit:^7.5.20 || ^9.6.4"
 
             -   name: Install dependencies
                 uses: ramsey/composer-install@v2
