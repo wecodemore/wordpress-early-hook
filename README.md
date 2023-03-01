@@ -44,7 +44,7 @@ In the case not even `ABSPATH` constant is defined, this package's functions res
 ## System Requirements
 
  - PHP 7.1+
- - WordPress 4.7+
+ - WordPress 4.7+ (Only tested on 5.9+ for PHP 8.1+)
 
 ## Installation
 
