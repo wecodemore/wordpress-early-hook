@@ -2,6 +2,8 @@
 
 Small library to safely add WordPress hooks before WordPress is loaded.
 
+[![PHP Quality Assurance](https://github.com/wecodemore/wordpress-early-hook/actions/workflows/php-qa.yml/badge.svg?branch=main)](https://github.com/wecodemore/wordpress-early-hook/actions/workflows/php-qa.yml)
+
 ---
 
 ## What
