@@ -52,8 +52,8 @@ namespace WeCodeMore\WpEarlyHook
             }
 
             return $isFilter
-                ? add_filter($hook, $callback, $priority)
-                : add_action($hook, $callback, $priority);
+                ? add_filter($hook, $callback, $priority, $acceptedArgs)
+                : add_action($hook, $callback, $priority, $acceptedArgs);
         }
         /**
          * If here, this function is called very early, probably _too_ early,
