@@ -31,7 +31,7 @@
         "source": "https://github.com/wecodemore/wordpress-early-hook"
     },
     "require": {
-        "php": ">=7.1 < 8.3"
+        "php": ">=7.1 < 8.4"
     },
     "require-dev": {
         "roots/wordpress-no-content": ">=6.1.1",
