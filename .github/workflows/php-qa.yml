@@ -85,6 +85,9 @@ jobs:
                         wp-ver: '5.*'
                     -   php-ver: '8.4'
                         wp-ver: '5.*'
+                    -   php-ver: '8.4'
+                        wp-ver: '5.*'
+                        dependency-versions: 'lowest'
 
         steps:
 
