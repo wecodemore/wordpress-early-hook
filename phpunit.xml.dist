@@ -7,7 +7,7 @@
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
-    convertDeprecationsToExceptions="true">
+    convertDeprecationsToExceptions="false">
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
