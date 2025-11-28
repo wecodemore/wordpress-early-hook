@@ -76,7 +76,6 @@ namespace WeCodeMore\WpEarlyHook
 }
 
 namespace WeCodeMore {
-
     /**
      * @param string $hook
      * @param callable $callback

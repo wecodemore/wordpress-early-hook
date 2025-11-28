@@ -93,7 +93,9 @@ class IntegrationTest extends TestCase
 
         $hookObj = new class ($filter, $action)
         {
+            /** @var callable */
             private $filter;
+            /** @var callable */
             private $action;
 
             /**
