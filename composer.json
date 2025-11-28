@@ -31,14 +31,14 @@
         "source": "https://github.com/wecodemore/wordpress-early-hook"
     },
     "require": {
-        "php": ">=7.1 < 8.5"
+        "php": ">=7.4 <= 8.5"
     },
     "require-dev": {
-        "roots/wordpress-no-content": ">=6.1.1",
+        "roots/wordpress-no-content": ">=6.8.3",
         "roave/security-advisories": "dev-latest",
-        "inpsyde/php-coding-standards": "^1.0.0",
-        "vimeo/psalm": "^4.30.0",
-        "phpunit/phpunit": "^7.5.20 || ^9.6.4"
+        "inpsyde/php-coding-standards": "^2.0.2",
+        "vimeo/psalm": "^5.26.1 || ^6.13.1",
+        "phpunit/phpunit": "^9.6.29"
     },
     "autoload": {
         "files": [

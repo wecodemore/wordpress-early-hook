@@ -19,7 +19,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function defineAbspath(): void
     {
         if (!defined('ABSPATH')) {
-            define('ABSPATH', (getenv('WP_DIR') ?: '') . '/');
+            define('ABSPATH', ((string) getenv('WP_DIR')) . '/');
         }
     }
 

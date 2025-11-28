@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/schema/9.5.xsd"
     bootstrap="./tests/bootstrap.php"
-    colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    convertDeprecationsToExceptions="false">
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    colors="true">
+    <coverage processUncoveredFiles="true">
+        <include>
             <file>./wordpress-early-hook.php</file>
-        </whitelist>
-    </filter>
-
+        </include>
+    </coverage>
     <testsuites>
         <testsuite name="integration">
             <directory>./tests/integration</directory>

@@ -41,7 +41,7 @@ jobs:
         steps:
 
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -71,22 +71,9 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-ver: [ '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
-                wp-ver: [ '5.*', '6.*' ]
+                php-ver: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
+                wp-ver: [ '6.0.*', '6.5.*', '6.*' ]
                 dependency-versions: [ 'highest', 'lowest' ]
-                exclude:
-                    -   php-ver: '8.1'
-                        wp-ver: '5.*'
-                        dependency-versions: 'lowest'
-                    -   php-ver: '8.2'
-                        wp-ver: '5.*'
-                        dependency-versions: 'lowest'
-                    -   php-ver: '8.3'
-                        wp-ver: '5.*'
-                    -   php-ver: '8.4'
-                        wp-ver: '5.*'
-                    -   php-ver: '8.4'
-                        dependency-versions: 'lowest'
 
         steps:
 
@@ -95,7 +82,7 @@ jobs:
                 run: echo "USE_COVERAGE=yes" >> $GITHUB_ENV
 
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
@@ -104,12 +91,14 @@ jobs:
                     ini-values: zend.assertions=1, error_reporting=E_ALL, display_errors=On
                     coverage: ${{ ((env.USE_COVERAGE == 'yes') && 'xdebug') || 'none' }}
 
-            -   name: Adjust WP version
+            -   name: Adjust dependencies
                 run: |
                     composer remove --dev --no-update "roots/wordpress-no-content"
+                    composer remove --dev --no-update "inpsyde/php-coding-standards"
+                    composer remove --dev --no-update "vimeo/psalm"
                     composer remove --dev --no-update "phpunit/phpunit"
                     composer require --no-update "roots/wordpress-no-content:${{ matrix.wp-ver }}"
-                    composer require --no-update "phpunit/phpunit:^7.5.20 || ^9.6.4"
+                    composer require --no-update "phpunit/phpunit:^9.6.29"
 
             -   name: Install dependencies
                 uses: ramsey/composer-install@v3
@@ -117,9 +106,7 @@ jobs:
                     dependency-versions: ${{ matrix.dependency-versions }}
 
             -   name: Run unit tests
-                run: |
-                    ./vendor/bin/phpunit --atleast-version 9 && ./vendor/bin/phpunit --migrate-configuration || echo 'Config does not need updates.'
-                    ./vendor/bin/phpunit ${{ ((env.USE_COVERAGE == 'yes') && '--coverage-html=coverage-report') || '--no-coverage' }}
+                run: ./vendor/bin/phpunit ${{ ((env.USE_COVERAGE == 'yes') && '--coverage-html=coverage-report') || '--no-coverage' }}
 
             -   name: Upload coverage report
                 uses: actions/upload-artifact@v4
@@ -134,11 +121,11 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                php-ver: [ '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
+                php-ver: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5' ]
         steps:
 
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2

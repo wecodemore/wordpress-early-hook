@@ -93,7 +93,9 @@ class IntegrationTest extends TestCase
 
         $hookObj = new class ($filter, $action)
         {
+            /** @var callable */
             private $filter;
+            /** @var callable */
             private $action;
 
             /**
@@ -136,7 +138,7 @@ class IntegrationTest extends TestCase
      *
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration
      */
-    private function doAssertions(callable $filter, callable $action, $hookObj): void
+    private function doAssertions(callable $filter, callable $action, object $hookObj): void
     {
         // phpcs:enable Inpsyde.CodeQuality.ArgumentTypeDeclaration
         static::assertSame(
@@ -149,7 +151,7 @@ class IntegrationTest extends TestCase
 
         ob_start();
         do_action('wecodemore.test-action', 'TEST_');
-        static::assertSame('TEST_TEST_', trim(ob_get_clean() ?: ''));
+        static::assertSame('TEST_TEST_', trim((string) ob_get_clean()));
 
         static::assertSame(10, has_filter('wecodemore.test-filter', $filter));
         static::assertSame(10, has_filter('wecodemore.test-action', $action));
@@ -169,7 +171,7 @@ class IntegrationTest extends TestCase
 
         ob_start();
         do_action('wecodemore.test-action', 'TEST_');
-        static::assertSame('TEST_', trim(ob_get_clean() ?: ''));
+        static::assertSame('TEST_', trim((string) ob_get_clean()));
 
         static::assertTrue(has_filter('wecodemore.test-filter'));
         static::assertTrue(has_filter('wecodemore.test-action'));
@@ -182,7 +184,7 @@ class IntegrationTest extends TestCase
         static::assertSame(1, apply_filters('wecodemore.test-filter', 1));
         ob_start();
         do_action('wecodemore.test-action', 'TEST');
-        static::assertSame('', trim(ob_get_clean() ?: ''));
+        static::assertSame('', trim((string) ob_get_clean()));
 
         static::assertFalse(has_filter('wecodemore.test-filter'));
         static::assertFalse(has_filter('wecodemore.test-action'));
