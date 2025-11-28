@@ -36,7 +36,7 @@
     "require-dev": {
         "roots/wordpress-no-content": ">=6.1.1",
         "roave/security-advisories": "dev-latest",
-        "inpsyde/php-coding-standards": "^2.0.2",
+        "inpsyde/php-coding-standards": "^1.0.0",
         "vimeo/psalm": "^4.30.0",
         "phpunit/phpunit": "^7.5.20 || ^9.6.4"
     },
